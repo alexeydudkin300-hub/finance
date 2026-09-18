@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F5F5F7">
+<meta name="theme-color" content="#0B0D10">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Финансы">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
@@ -27,22 +27,457 @@ const APP_PASSWORD = "Amir2026";
 </script>
 
 <style>
-:root{
-  --bg:#F5F5F7;
-  --card:#FFFFFF;
-  --text:#1D1D1F;
-  --text2:#6E6E73;
-  --text3:#A1A1A6;
-  --line:#E5E5EA;
-  --blue:#0071E3;
-  --blue-d:#0059B3;
-  --green:#2FA84F;
-  --red:#E0483E;
-  --amber:#D98E04;
-  --purple:#8B5CF6;
-  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
-  --radius:20px;
-  --radius-sm:14px;
+/* =========================================================
+   MOBILE FIX + DARK THEME
+   ========================================================= */
+
+:root {
+  --bg: #0B0D10;
+  --card: #15181D;
+  --text: #F5F7FA;
+  --text2: #9BA1AA;
+  --text3: #626873;
+  --line: #292D34;
+
+  --blue: #0A84FF;
+  --blue-d: #006EDB;
+
+  --green: #32D583;
+  --red: #FF5C5C;
+  --amber: #F5B942;
+  --purple: #9B7BFF;
+
+  --shadow: 0 8px 28px rgba(0,0,0,.22);
+}
+
+/* ---------- Global ---------- */
+
+html,
+body {
+  width: 100%;
+  min-width: 0 !important;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+#app {
+  width: 100%;
+  max-width: 100vw;
+  min-width: 0 !important;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* ---------- Dark cards ---------- */
+
+.card,
+.stat-card,
+.acct-card,
+.goal-card,
+.chart-card,
+.settings-list {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.section-title,
+.page-title,
+.stat-value,
+.acct-name,
+.acct-balance,
+.modal-title,
+.tx-title {
+  color: var(--text);
+}
+
+.page-sub,
+.stat-label,
+.tx-sub,
+.chart-note,
+.goal-row,
+.settings-row .sub {
+  color: var(--text2);
+}
+
+/* ---------- Inputs ---------- */
+
+input,
+select,
+textarea {
+  background: #101318 !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #626873;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  background: #12161B !important;
+  border-color: var(--blue) !important;
+}
+
+/* ---------- Secondary buttons ---------- */
+
+.btn-secondary {
+  background: #252930 !important;
+  color: var(--text) !important;
+}
+
+.btn-secondary:hover {
+  background: #30343C !important;
+}
+
+.btn-ghost {
+  color: var(--text2) !important;
+}
+
+.btn-ghost:hover {
+  background: #24282F !important;
+}
+
+/* ---------- Segments / tabs ---------- */
+
+.seg,
+.tabbar {
+  background: #24282F !important;
+}
+
+.seg button,
+.tabbar button {
+  color: var(--text2);
+}
+
+.seg button.active,
+.tabbar button.active {
+  background: #363B44 !important;
+  color: #fff !important;
+}
+
+/* ---------- Chips ---------- */
+
+.chip {
+  background: #252930 !important;
+  color: var(--text2) !important;
+}
+
+.chip.active {
+  background: rgba(10,132,255,.16) !important;
+  color: #5AA9FF !important;
+  border-color: var(--blue) !important;
+}
+
+/* ---------- History ---------- */
+
+.tx-row {
+  border-color: var(--line) !important;
+}
+
+.tx-actions button:hover {
+  background: #252930 !important;
+}
+
+/* ---------- Progress ---------- */
+
+.progress-track {
+  background: #292D34 !important;
+}
+
+/* ---------- Settings ---------- */
+
+.settings-row {
+  border-color: var(--line) !important;
+}
+
+.cat-tag {
+  background: #252930 !important;
+  color: var(--text);
+}
+
+/* ---------- Modal ---------- */
+
+.overlay {
+  background: rgba(0,0,0,.72) !important;
+}
+
+.modal {
+  background: #15181D !important;
+  color: var(--text);
+}
+
+.modal-close {
+  background: #292D34 !important;
+  color: var(--text2) !important;
+}
+
+/* ---------- Sync ---------- */
+
+.sync-badge {
+  background: #20242A !important;
+  color: var(--text2);
+}
+
+.sync-badge.online {
+  background: rgba(50,213,131,.12) !important;
+  color: var(--green);
+}
+
+.sync-badge.offline {
+  background: rgba(245,185,66,.12) !important;
+  color: var(--amber);
+}
+
+/* ---------- Bottom navigation ---------- */
+
+.bottom-nav {
+  background: rgba(15,17,21,.96) !important;
+  border-top-color: #292D34 !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.bn-item {
+  color: #777D87 !important;
+}
+
+.bn-item.active {
+  color: var(--blue) !important;
+}
+
+/* =========================================================
+   IPHONE / MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  html,
+  body {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  #app {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+  }
+
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+
+    padding-top: calc(14px + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Заголовок */
+
+  .page-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .page-title {
+    font-size: 30px !important;
+    line-height: 1.1;
+  }
+
+  .page-sub {
+    font-size: 13px;
+    margin-top: 5px;
+  }
+
+  .page-header .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+  }
+
+  /* Статистика */
+
+  .grid-stats {
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px;
+  }
+
+  .stat-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 17px 18px;
+  }
+
+  .stat-value {
+    font-size: 27px;
+  }
+
+  /* Две колонки превращаем в одну */
+
+  .two-col {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px;
+  }
+
+  .two-col > * {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Все карточки */
+
+  .card,
+  .chart-card,
+  .settings-list,
+  .acct-card,
+  .goal-card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* История */
+
+  .filters-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters-bar input,
+  .filters-bar select {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .tx-row {
+    width: 100%;
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .tx-main {
+    min-width: 0 !important;
+  }
+
+  .tx-title {
+    max-width: 100%;
+  }
+
+  .tx-amount {
+    font-size: 14px;
+  }
+
+  /* Счета */
+
+  .acct-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Модальные окна */
+
+  .overlay {
+    width: 100vw;
+  }
+
+  .modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    border-radius: 22px 22px 0 0;
+  }
+
+  /* Нижняя панель */
+
+  .bottom-nav {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* Кнопка + */
+
+  .bn-fab {
+    right: 16px !important;
+    bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Таблицы / графики */
+
+  canvas {
+    max-width: 100% !important;
+  }
+
+  /* Чтобы длинные элементы не растягивали приложение */
+
+  * {
+    max-width: 100%;
+  }
+
+  img,
+  svg,
+  canvas {
+    max-width: 100%;
+  }
+}
+
+/* Очень узкие iPhone */
+
+@media (max-width: 390px) {
+
+  main {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .page-title {
+    font-size: 28px !important;
+  }
+
+  .stat-value {
+    font-size: 25px;
+  }
+
+  .card,
+  .stat-card,
+  .chart-card {
+    border-radius: 16px !important;
+  }
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
